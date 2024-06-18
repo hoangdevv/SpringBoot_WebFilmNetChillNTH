@@ -14,13 +14,13 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "derector")
-public class Derector extends Base{
+@Table(name = "director")
+public class Director extends Base{
     private String name;
     private Date dateOfBirth;
     private String information;
     private String avatarUrl;
 
-    @ManyToMany(mappedBy = "derectors")
+    @ManyToMany(mappedBy = "directors")
     Set<Movie> movies;
 }

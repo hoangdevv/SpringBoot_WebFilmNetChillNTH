@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "movie")
-public class Movie extends Base{
+public class Movie extends Base {
     private String title;
     private String description;
     private Date releaseDate;
@@ -42,7 +42,7 @@ public class Movie extends Base{
             name = "movie_derector",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "derector_id"))
-    Set<Derector> derectors;
+    Set<Director> directors;
 
     @ManyToMany
     @JoinTable(
@@ -57,4 +57,10 @@ public class Movie extends Base{
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     Set<Genre> genres;
+
+    public Movie() {
+    }
+//    public Movie(String title){
+//        this.title = title;
+//    }
 }
