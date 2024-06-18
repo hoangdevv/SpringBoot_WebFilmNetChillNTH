@@ -15,8 +15,8 @@ import lombok.Setter;
 @Table(name = "episode")
 public class Episode extends Base{
     @ManyToOne
-    @JoinColumn(name = "seasion_id")
-    Seasion seasion;
+    @JoinColumn(name = "season_id")
+    Season season;
 
     private String name;
     private String videoUrl;

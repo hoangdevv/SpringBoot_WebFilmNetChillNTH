@@ -11,14 +11,14 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "seasion")
-public class Seasion extends Base{
+@Table(name = "season")
+public class Season extends Base{
     @ManyToOne
     @JoinColumn(name = "movie_id")
     Movie movie;
 
     private String description;
 
-    @OneToMany(mappedBy = "seasion")
+    @OneToMany(mappedBy = "season")
     Set<Episode> episodes;
 }

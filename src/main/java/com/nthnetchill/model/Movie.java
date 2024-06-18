@@ -26,7 +26,7 @@ public class Movie extends Base {
     Country country;
 
     @OneToMany(mappedBy = "movie")
-    Set<Seasion> seasions;
+    Set<Season> seasons;
 
     @OneToMany(mappedBy = "movie")
     Set<Rating> ratings;
@@ -39,9 +39,9 @@ public class Movie extends Base {
 
     @ManyToMany
     @JoinTable(
-            name = "movie_derector",
+            name = "movie_director",
             joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "derector_id"))
+            inverseJoinColumns = @JoinColumn(name = "director_id"))
     Set<Director> directors;
 
     @ManyToMany
