@@ -1,5 +1,6 @@
 package com.nthnetchill.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -20,5 +21,6 @@ public class WatchList extends Base{
 
     @ManyToOne
     @JoinColumn(name = "movie_id")
+//    @JsonBackReference
     Movie movie;
 }
