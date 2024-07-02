@@ -197,6 +197,7 @@ body::-webkit-scrollbar-thumb {
 }
 .header__logo img {
   width: 100%;
+  height: 100%;
   max-width: 100px;
   display: block;
 }
@@ -1151,6 +1152,11 @@ body::-webkit-scrollbar-thumb {
 .splide--home .splide__track {
   border-radius: 8px 8px 0 0;
 }
+
+.splide__track .splide__list li{
+  margin-right: 20px;
+}
+
 .splide--home .splide__pagination {
   display: flex;
   flex-direction: row;
@@ -2093,6 +2099,9 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
   position: relative;
   z-index: 1;
+  height: auto;
+  max-height: 400px; /* Điều chỉnh max-height để giới hạn kích thước hình ảnh */
+  object-fit: cover;
 }
 .item__cover:before {
   content: '';
@@ -2246,6 +2255,7 @@ body::-webkit-scrollbar-thumb {
 .item--details .item__cover {
   max-width: 156px;
   width: 190px;
+  width: 100%;
 }
 .item--details .item__cover:before {
   display: none;
@@ -2490,7 +2500,7 @@ body::-webkit-scrollbar-thumb {
     margin-top: 12px;
   }
   .item__description {
-    margin-top: auto;
+    /* margin-top: auto; */
   }
   .item__description p {
     -webkit-line-clamp: 8;
