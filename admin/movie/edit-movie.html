@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ADMIN - EDIT MOVIE</title>
+    <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link href="/admin/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <style>
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .container-fluid {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .btn-primary {
+            background-color: #4e73df;
+            border-color: #4e73df;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            border-color: #2653d4;
+        }
+
+        .card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+
+        .card-header {
+            background-color: #f8f9fc;
+            border-bottom: 1px solid #e3e6f0;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fa-solid fa-video"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">NTH NetChill</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="/admin/index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Addons</div>
+            <li class="nav-item">
+                <a class="nav-link" href="movie.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý phim</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/genre/genre.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý thể loại</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/director/director.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý đạo diễn</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/actor/actor.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý diễn viên</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/country/country.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý quốc gia</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pages</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <img class="img-profile rounded-circle" src="/admin/assets/img/undraw_profile.svg">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    <h1 class="h3 mb-4 text-gray-800">Chỉnh sửa phim</h1>
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold text-primary">Thông tin phim</h6>
+                        </div>
+                        <div class="card-body">
+                            <form id="editMovieForm">
+                                <div class="form-group">
+                                    <label for="title">Tên phim</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Mô tả</label>
+                                    <textarea class="form-control" id="description" name="description"
+                                        rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Quốc gia</label>
+                                    <select class="form-control select2" id="country" name="country" required>
+                                        <!-- Options will be populated dynamically via JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="genres">Thể loại</label>
+                                    <select class="form-control select2" id="genres" name="genres[]" multiple="multiple"
+                                        required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="releaseDate">Ngày phát hành</label>
+                                    <input type="text" class="form-control datepicker" id="releaseDate"
+                                        name="releaseDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">Thời lượng (in minutes)</label>
+                                    <input type="number" class="form-control" id="duration" name="duration" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="directors">Đạo diễn</label>
+                                    <select class="form-control select2" id="directors" name="directors[]"
+                                        multiple="multiple" required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="actors">Diễn viên</label>
+                                    <select class="form-control select2" id="actors" name="actors[]" multiple="multiple"
+                                        required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="isSeries">Loại phim?</label>
+                                    <select class="form-control " id="isSeries" name="isSeries" required>
+                                        <option value=""></option>
+                                        <option value="false">Phim lẻ</option>
+                                        <option value="true">Phim bộ</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="trailerUrl">Tải lên trailer</label>
+                                    <input type="text" class="form-control" id="trailerUrl" name="trailerUrl" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="imageUrl">Tải lên ảnh</label>
+                                    <input type="file" class="form-control-file" id="imageUrl" name="imageUrl">
+                                </div>
+
+                                <a href="/admin/movie/movie.html" class="btn">Trở về</a>
+                                <button type="submit" class="btn btn-primary ml-auto">Lưu thay đổi</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>&copy; NTH NetChill 2024</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: "Chọn giá trị",
+                allowClear: true
+            });
+
+            // Initialize datepicker
+            $('.datepicker').datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+
+            // Format date to YYYY-MM-DD
+            function formatDate(date) {
+                var parts = date.split('/');
+                return parts[2] + '-' + parts[1] + '-' + parts[0];
+            }
+
+            // Xử lý sự kiện khi form được submit
+            $('#editMovieForm').submit(function (event) {
+                event.preventDefault();
+
+                // Thu thập dữ liệu từ form
+                var formData = {
+                    title: $('input[name="title"]').val(),
+                    description: $('textarea[name="description"]').val(),
+                    duration: parseInt($('input[name="duration"]').val()),
+                    isSeries: $('select[name="isSeries"]').val() === 'true',
+                    trailerUrl: $('input[name="trailerUrl"]').val(),
+                    releaseDate: formatDate($('input[name="releaseDate"]').val()),
+                    country: {
+                        id: $('select[name="country"]').val()
+                    },
+                    genres: $('#genres').val() ? $('#genres').val().map(function (id) {
+                        return {
+                            id: id
+                        };
+                    }) : [],
+                    directors: $('#directors').val() ? $('#directors').val().map(function (id) {
+                        return {
+                            id: id
+                        };
+                    }) : [],
+                    actors: $('#actors').val() ? $('#actors').val().map(function (id) {
+                        return {
+                            id: id
+                        };
+                    }) : []
+                };
+
+                console.log("Formatted Form Data: ", formData);
+
+                // AJAX request để cập nhật phim
+                $.ajax({
+                    url: 'http://localhost:8989/movies/' + movieId,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        // Trường hợp thành công, có thể cập nhật ảnh
+                        var imageFile = $('#imageUrl')[0].files[0];
+                        if (imageFile) {
+                            var imageData = new FormData();
+                            imageData.append('file', imageFile);
+
+                            // AJAX request để tải ảnh lên
+                            $.ajax({
+                                url: 'http://localhost:8989/movies/' + movieId +
+                                    '/image',
+                                type: 'POST',
+                                processData: false,
+                                contentType: false,
+                                data: imageData,
+                                success: function () {
+                                    alert('Cập nhật thành công');
+                                    window.location.href =
+                                        '/admin/movie/movie.html';
+                                },
+                                error: function (xhr, status, error) {
+                                    alert('Lỗi khi tải ảnh lên: ' + error);
+                                }
+                            });
+                        } else {
+                            alert('Cập nhật thành công');
+                            window.location.href = '/admin/movie/movie.html';
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Lỗi khi cập nhật phim: ' + error);
+                    }
+                });
+            });
+
+            // AJAX request để lấy thông tin phim từ server và điền vào form
+            var movieId = window.location.search.substring(4); // Lấy id phim từ query string
+            $.ajax({
+                url: 'http://localhost:8989/movies/' + movieId,
+                type: 'GET',
+                success: function (movie) {
+                    console.log('Retrieved Movie Data:', movie);
+
+                    // Điền dữ liệu từ phim vào form
+                    $('input[name="title"]').val(movie.title);
+                    $('textarea[name="description"]').val(movie.description);
+                    $('input[name="duration"]').val(movie.duration);
+                    $('select[name="isSeries"]').val(movie.isSeries ? 'true' : 'false').change();
+                    $('input[name="trailerUrl"]').val(movie.trailerUrl);
+                    var releaseDateFormatted = new Date(movie.releaseDate).toLocaleDateString(
+                        'en-GB');
+                    $('input[name="releaseDate"]').val(releaseDateFormatted);
+
+
+                    // Điền dữ liệu quốc gia vào select
+                    $('#country').append($('<option>', {
+                        value: movie.country.id,
+                        text: movie.country.name
+                    }));
+                    // Điền dữ liệu thể loại vào select
+                    movie.genres.forEach(function (genre) {
+                        $('#genres').append($('<option>', {
+                            value: genre.id,
+                            text: genre.name,
+                            selected: true
+                        }));
+                    });
+
+                    // Điền dữ liệu đạo diễn vào select
+                    movie.directors.forEach(function (director) {
+                        $('#directors').append($('<option>', {
+                            value: director.id,
+                            text: director.name,
+                            selected: true
+                        }));
+                    });
+
+                    // Điền dữ liệu diễn viên vào select
+                    movie.actors.forEach(function (actor) {
+                        $('#actors').append($('<option>', {
+                            value: actor.id,
+                            text: actor.name,
+                            selected: true
+                        }));
+                    });
+
+                    // Trigger Select2 to reflect selected options
+                    $('.select2').trigger('change');
+                },
+                error: function (xhr, status, error) {
+                    alert('Lỗi khi tải thông tin phim: ' + error);
+                }
+            });
+            // Fetch data for select inputs
+            if ($('#country').find('option').length === 0) {
+                $.getJSON("http://localhost:8989/countries", function (data) {
+                    $('#country').empty(); // Clear existing options
+                    $.each(data, function (key, entry) {
+                        $('#country').append($('<option></option>').attr('value', entry.id)
+                            .text(entry.name));
+                    });
+                    $('#country').val(movie.country.id).trigger('change'); // Select default option
+                });
+            }
+
+            if ($('#genres').find('option').length === 0) {
+                $.getJSON("http://localhost:8989/genres", function (data) {
+                    $.each(data, function (key, entry) {
+                        $('#genres').append($('<option></option>').attr('value', entry.id).text(
+                            entry.name));
+                    });
+                });
+            }
+
+            if ($('#directors').find('option').length === 0) {
+                $.getJSON("http://localhost:8989/directors", function (data) {
+                    $.each(data, function (key, entry) {
+                        $('#directors').append($('<option></option>').attr('value', entry.id)
+                            .text(entry.name));
+                    });
+                });
+            }
+
+            if ($('#actors').find('option').length === 0) {
+                $.getJSON("http://localhost:8989/actors", function (data) {
+                    $.each(data, function (key, entry) {
+                        $('#actors').append($('<option></option>').attr('value', entry.id).text(
+                            entry.name));
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

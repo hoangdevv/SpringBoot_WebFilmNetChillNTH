@@ -7,12 +7,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>ADMIN</title>
+    <title>ADMIN-ADD MOVIE</title>
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <link href="/admin/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+    <style>
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .container-fluid {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .btn-primary {
+            background-color: #4e73df;
+            border-color: #4e73df;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            border-color: #2653d4;
+        }
+
+        .card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        }
+
+        .card-header {
+            background-color: #f8f9fc;
+            border-bottom: 1px solid #e3e6f0;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -28,7 +65,8 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/admin/index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
             <hr class="sidebar-divider">
             <div class="sidebar-heading">Addons</div>
@@ -38,22 +76,22 @@
                     <span>Quản lý phim</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/admin/genre/genre.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý thể loại</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/admin/director/director.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý đạo diễn</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/admin/actor/actor.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý diễn viên</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/admin/country/country.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý quốc gia</span></a>
             </li>
@@ -145,57 +183,71 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <h1 class="h3 mb-2 text-gray-800">Add New Movie</h1>
-
-                    <div class="card shadow mb-4">
+                    <h1 class="h3 mb-4 text-gray-800">Quản lý phim</h1>
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold text-primary">Thêm phim</h6>
+                        </div>
                         <div class="card-body">
                             <form id="addMovieForm">
                                 <div class="form-group">
-                                    <label for="title">Title</label>
+                                    <label for="title">Tên phim</label>
                                     <input type="text" class="form-control" id="title" name="title" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Description</label>
+                                    <label for="description">Mô tả</label>
                                     <textarea class="form-control" id="description" name="description"
                                         rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="releaseDate">Release Date</label>
-                                    <input type="date" class="form-control" id="releaseDate" name="releaseDate"
-                                        required>
+                                    <label for="country">Quốc gia</label>
+                                    <select class="form-control select2" id="country" name="country" required>
+                                        <option value=""></option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="duration">Duration (in minutes)</label>
+                                    <label for="genres">Thể loại</label>
+                                    <select class="form-control select2" id="genres" name="genres[]" multiple="multiple"
+                                        required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="releaseDate">Ngày phát hành</label>
+                                    <input type="text" class="form-control datepicker" id="releaseDate"
+                                        name="releaseDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">Thời lượng (in minutes)</label>
                                     <input type="number" class="form-control" id="duration" name="duration" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="isSeries">Is Series?</label>
-                                    <select class="form-control" id="isSeries" name="isSeries" required>
-                                        <option value="false">Single Movie</option>
-                                        <option value="true">Series</option>
+                                    <label for="directors">Đạo diễn</label>
+                                    <select class="form-control select2" id="directors" name="directors[]"
+                                        multiple="multiple" required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="actors">Diễn viên</label>
+                                    <select class="form-control select2" id="actors" name="actors[]" multiple="multiple"
+                                        required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="isSeries">Loại phim?</label>
+                                    <select class="form-control " id="isSeries" name="isSeries" required>
+                                        <option value=""></option>
+                                        <option value="false">Phim lẻ</option>
+                                        <option value="true">Phim bộ</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="imageUrl">Image URL</label>
-                                    <input type="text" class="form-control" id="imageUrl" name="imageUrl" required>
+                                    <label for="trailerUrl">Tải lên trailer</label>
+                                    <input type="text" class="form-control" id="trailerUrl" name="trailerUrl" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="trailerUrl">Trailer URL</label>
-                                    <input type="text" class="form-control" id="trailerUrl" name="trailerUrl">
+                                    <label for="imageUrl">Tải lên ảnh</label>
+                                    <input type="file" class="form-control-file" id="imageUrl" name="imageUrl" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="country">Country</label>
-                                    <select class="form-control" id="country" name="countryId" required>
-                                        <!-- Options will be populated by JavaScript -->
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="genres">Genres</label>
-                                    <select multiple class="form-control" id="genres" name="genreIds[]" required>
-                                        <!-- Options will be populated by JavaScript -->
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                                <a href="/admin/movie/movie.html" type="submit" class="btn">Trở về</a>
+                                <button type="submit" class="btn btn-primary ml-auto">Thêm</button>
                             </form>
                         </div>
                     </div>
@@ -204,59 +256,139 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>&copy; NTH NetChill 2024</span>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-    <script src="/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="/admin/js/sb-admin-2.min.js"></script>
-    <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="/admin/js/demo/datatables-demo.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchMovies();
-        });
+        $(document).ready(function () {
+            $('.select2').select2({
+                placeholder: "Chọn giá trị",
+                allowClear: true
+            });
 
-        function fetchMovies() {
-            fetch('http://localhost:8989/movies')
-                .then(response => response.json())
-                .then(data => {
-                    const movieTableBody = document.getElementById('movieTableBody');
-                    movieTableBody.innerHTML = ''; // Clear previous data
+            // Initialize datepicker
+            $('.datepicker').datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
 
-                    data.forEach(movie => {
-                        const formattedReleaseDate = new Date(movie.releaseDate).toLocaleDateString(
-                            'en-GB');
-                        const imageUrl = `http://localhost:8989${movie.imageUrl}`;
-                        const row = `
-                            <tr>
-                                <td>${movie.id}</td>
-                                <td>${movie.title}</td>
-                                <td>${movie.country ? movie.country.name : ''}</td>
-                                <td>${movie.genres.map(genre => genre.name).join(', ')}</td>
-                                <td>${movie.isSeries ? 'Phim bộ' : 'Phim lẻ'}</td>
-                                <td>${formattedReleaseDate}</td>
-                                <td><img src="${imageUrl}" style="max-width: 100px;"></td>  
-                                <td>
-                                    <a href="#" class="btn btn-info btn-sm">Edit</a>
-                                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                                </td>
-                            </tr>
-                        `;
-                        movieTableBody.innerHTML += row;
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching movies:', error);
-                    alert('Error fetching movies. Please try again.');
+            // Format date to YYYY-MM-DD
+            function formatDate(date) {
+                var parts = date.split('/');
+                return parts[2] + '-' + parts[1] + '-' + parts[0];
+            }
+
+            // Xử lý sự kiện submit của form
+            $('#addMovieForm').submit(function (event) {
+                event.preventDefault();
+
+                // Gather form data
+                var formData = {
+                    title: $('input[name="title"]').val(),
+                    description: $('textarea[name="description"]').val(),
+                    duration: parseInt($('input[name="duration"]').val()),
+                    isSeries: $('select[name="isSeries"]').val() === 'true',
+                    trailerUrl: $('input[name="trailerUrl"]').val(),
+                    releaseDate: formatDate($('input[name="releaseDate"]').val()),
+                    country: {
+                        id: $('select[name="country"]').val()
+                    },
+                    genres: $('#genres').val() ? $('#genres').val().map(function (id) {
+                        return {
+                            id: id
+                        };
+                    }) : [],
+                    directors: $('#directors').val() ? $('#directors').val().map(function (id) {
+                        return {
+                            id: id
+                        };
+                    }) : [],
+                    actors: $('#actors').val() ? $('#actors').val().map(function (id) {
+                        return {
+                            id: id
+                        };
+                    }) : []
+                };
+
+                console.log("Formatted Form Data: ", formData);
+
+                // First AJAX request to add the movie
+                $.ajax({
+                    url: 'http://localhost:8989/movies',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        // On success, add the image
+                        var movieId = response.id;
+                        var imageFile = $('#imageUrl')[0].files[0];
+                        var imageData = new FormData();
+                        imageData.append('imageFile', imageFile);
+
+                        $.ajax({
+                            url: 'http://localhost:8989/movies/' + movieId +
+                                '/image',
+                            type: 'POST',
+                            data: imageData,
+                            processData: false,
+                            contentType: false,
+                            success: function (response) {
+                                alert('Thêm phim thành công!');
+                                window.location.href =
+                                    '/admin/movie/movie.html';
+                            },
+                            error: function (error) {
+                                alert(
+                                    'Thêm hình ảnh thất bại. Vui lòng thử lại.'
+                                );
+                                console.error('Error:', error);
+                            }
+                        });
+                    },
+                    error: function (error) {
+                        alert('Thêm phim thất bại. Vui lòng thử lại.');
+                        console.error('Error:', error);
+                    }
                 });
-        }
+            });
+
+            // Fetch data for select inputs
+            $.getJSON("http://localhost:8989/countries", function (data) {
+                $.each(data, function (key, entry) {
+                    $('#country').append($('<option></option>').attr('value', entry.id).text(
+                        entry.name));
+                });
+            });
+
+            $.getJSON("http://localhost:8989/genres", function (data) {
+                $.each(data, function (key, entry) {
+                    $('#genres').append($('<option></option>').attr('value', entry.id).text(
+                        entry.name));
+                });
+            });
+
+            $.getJSON("http://localhost:8989/directors", function (data) {
+                $.each(data, function (key, entry) {
+                    $('#directors').append($('<option></option>').attr('value', entry.id).text(
+                        entry.name));
+                });
+            });
+
+            $.getJSON("http://localhost:8989/actors", function (data) {
+                $.each(data, function (key, entry) {
+                    $('#actors').append($('<option></option>').attr('value', entry.id).text(
+                        entry.name));
+                });
+            });
+        });
     </script>
+
 </body>
 
 </html>

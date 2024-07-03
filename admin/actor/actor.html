@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>ADMIN-LIST MOVIE</title>
+    <title>ADMIN - LIST ACTOR</title>
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -33,20 +33,9 @@
             <hr class="sidebar-divider">
             <div class="sidebar-heading">Addons</div>
             <li class="nav-item">
-                <a class="nav-link" href="movie.html">
+                <a class="nav-link" href="/admin/movie/movie.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý phim</span></a>
-            </li>
-            <div class="sidebar-heading">Loại phim</div>
-            <li class="nav-item">
-                <a class="nav-link" href="movie-series.html">
-                    <i class="fas fa-fw fa-film"></i>
-                    <span>Quản lý phim bộ</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="movie-single.html">
-                    <i class="fas fa-fw fa-film"></i>
-                    <span>Quản lý phim lẻ</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/genre/genre.html">
@@ -59,7 +48,7 @@
                     <span>Quản lý đạo diễn</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/actor/actor.html">
+                <a class="nav-link" href="actor.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý diễn viên</span></a>
             </li>
@@ -90,7 +79,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -125,32 +113,30 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <h1 class="h3 mb-2 text-gray-800">Danh mục phim</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Danh mục diễn viên</h1>
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h6 class="m-0 font-weight-bold text-primary">Movie List</h6>
-                            <a href="add-movie.html" class="btn btn-primary ml-auto">
-                                <i class="fas fa-plus"></i> Thêm phim
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách diễn viên</h6>
+                            <a href="add-actor.html" class="btn btn-primary ml-auto">
+                                <i class="fas fa-plus"></i> Thêm diễn viên
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="actorTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên phim</th>
-                                            <th>Quốc gia</th>
-                                            <th>Thể loại</th>
-                                            <th>Loại phim</th>
-                                            <th>Ngày phát hành</th>
-                                            <th>Hình ảnh</th>
-                                            <th>Actions</th>
+                                            <th>Tên diễn viên</th>
+                                            <th>Ngày sinh</th>
+                                            <th>Thông tin</th>
+                                            <th>Avatar</th>
+                                            <th>Thao tác</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Movie data will be injected here by JavaScript -->
+                                        <!-- Dữ liệu diễn viên sẽ được load bằng JavaScript -->
                                     </tbody>
                                 </table>
                             </div>
@@ -176,80 +162,62 @@
     <script src="/admin/js/demo/datatables-demo.js"></script>
     <script>
         $(document).ready(function () {
-            if ($.fn.DataTable.isDataTable('#dataTable')) {
-                $('#dataTable').DataTable().destroy();
-            }
-            $('#dataTable').DataTable({
-                "processing": true,
-                "serverSide": false, // Set to true if using server-side processing
+            // Khởi tạo DataTable
+            $('#actorTable').DataTable({
                 "ajax": {
-                    "url": 'http://localhost:8989/movies',
+                    "url": "http://localhost:8989/actors",
                     "dataSrc": ""
                 },
                 "columns": [{
                         "data": "id"
                     },
                     {
-                        "data": "title"
+                        "data": "name"
                     },
                     {
-                        "data": "country",
+                        "data": "dateOfBirth",
                         "render": function (data) {
-                            return data ? data.name : '';
+                            var date = new Date(data);
+                            var day = date.getDate();
+                            var month = date.getMonth() + 1;
+                            var year = date.getFullYear();
+                            return day + '/' + month + '/' + year;
                         }
                     },
                     {
-                        "data": "genres",
-                        "render": function (data) {
-                            return data.map(genre => genre.name).join(', ');
-                        }
+                        "data": "information"
                     },
                     {
-                        "data": "isSeries",
+                        "data": "avatarUrl",
                         "render": function (data) {
-                            return data ? 'Phim bộ' : 'Phim lẻ';
-                        }
-                    },
-                    {
-                        "data": "releaseDate",
-                        "render": function (data) {
-                            return new Date(data).toLocaleDateString('en-GB');
-                        }
-                    },
-                    {
-                        "data": "imageUrl",
-                        "render": function (data) {
-                            return `<img src="http://localhost:8989${data}" style="max-width: 100px;">`;
+                            return '<img src="http://localhost:8989' + data +
+                                '" class="img-fluid" style="max-width: 100px; max-height: 100px;">';
                         }
                     },
                     {
                         "data": null,
-                        "render": function (data) {
-                            return `<a href="edit-movie.html?id=${data.id}" class="btn btn-info btn-sm">Edit</a>
-                                <button class="btn btn-danger btn-sm" onclick="deleteMovie(${data.id})">Delete</button>`;
+                        "render": function (data, type, row) {
+                            return '<a href="edit-actor.html?id=' + row.id +
+                                '" class="btn btn-primary btn-sm mr-2">Edit</a>' +
+                                '<button type="button" class="btn btn-danger btn-sm" onclick="deleteActor(' +
+                                row.id + ')">Delete</button>';
                         }
                     }
                 ]
             });
-
         });
 
-        function deleteMovie(movieId) {
-            if (confirm('Bạn có chắc chắn muốn xóa phim này không?')) {
-                fetch(`http://localhost:8989/movies/${movieId}`, {
-                        method: 'DELETE',
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Failed to delete movie');
-                        }
-                        alert('Đã xóa phim thành công!');
-                        fetchMovies(); // Refresh the movie list after deletion
-                    })
-                    .catch(error => {
-                        console.error('Error deleting movie:', error);
-                        alert('Error deleting movie. Please try again.');
-                    });
+        // Xóa diễn viên
+        function deleteActor(id) {
+            if (confirm("Bạn có muốn xóa diễn viên này?")) {
+                $.ajax({
+                    url: 'http://localhost:8989/actors/' + id,
+                    type: 'DELETE',
+                    success: function (result) {
+                        // Reload lại DataTable sau khi xóa thành công
+                        $('#actorTable').DataTable().ajax.reload();
+                    }
+                });
             }
         }
     </script>

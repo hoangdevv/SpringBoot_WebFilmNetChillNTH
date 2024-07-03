@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from flixgo.volkovdesign.com/main/signup.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 23 Jun 2024 07:10:10 GMT -->
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/splide.min.css">
-	<link rel="stylesheet" href="css/slimselect.css">
-	<link rel="stylesheet" href="css/plyr.css">
-	<link rel="stylesheet" href="css/photoswipe.css">
-	<link rel="stylesheet" href="css/default-skin.css">
 	<link rel="stylesheet" href="css/main.css">
 
 	<!-- Favicons -->
@@ -22,43 +16,72 @@
 	<meta name="description" content="Online Movies, TV Shows & Cinema HTML Template">
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
-	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
-
+	<title>Sign Up</title>
 </head>
+
 <body>
 	<div class="sign section--bg" data-bg="img/bg/section__bg.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="sign__content">
-						<!-- registration form -->
-						<form action="#" class="sign__form">
+						<form id="signupForm" class="sign__form">
 							<a href="index.html" class="sign__logo">
-								<img src="img/logo.svg" alt="">
+								<img src="img/logo.png" alt="">
 							</a>
 
 							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Name">
+								<input type="text" class="sign__input" id="name" placeholder="Full Name">
 							</div>
 
 							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Email">
+								<div class="input-group">
+									<input type="email" class="sign__input " id="email" placeholder="Email" required>
+									<div class="input-group-append">
+										<button type="button" class="btn btn-primary btn-sm" onclick="sendOTP()">Send
+											OTP</button>
+									</div>
+								</div>
+							</div>
+
+							<div id="otpSection" style="display: none;">
+								<div class="sign__group">
+									<input type="text" class="sign__input" id="otp" placeholder="Enter OTP" required>
+								</div>
 							</div>
 
 							<div class="sign__group">
-								<input type="password" class="sign__input" placeholder="Password">
+								<div class="input-group">
+									<input type="password" class="sign__input " id="password" placeholder="Password"
+										required>
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary" type="button"
+											onclick="togglePasswordVisibility('password')">Show/Hide</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="sign__group">
+								<div class="input-group">
+									<input type="password" class="sign__input " id="confirmPassword"
+										placeholder="Confirm Password" required>
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary" type="button"
+											onclick="togglePasswordVisibility('confirmPassword')">Show/Hide</button>
+									</div>
+								</div>
 							</div>
 
 							<div class="sign__group sign__group--checkbox">
-								<input id="remember" name="remember" type="checkbox" checked="checked">
-								<label for="remember">I agree to the <a href="privacy.html">Privacy policy</a></label>
+								<input id="agreePrivacy" name="agreePrivacy" type="checkbox" checked="checked">
+								<label for="agreePrivacy">I agree to the <a href="privacy.html">Privacy
+										policy</a></label>
 							</div>
-							
-							<button class="sign__btn" type="button"><span>Sign up</span></button>
 
-							<span class="sign__text">Already have an account? <a href="signin.html">Sign in!</a></span>
+							<button class="sign__btn" onclick="registerUser()"><span>Sign Up</span></button>
+
+							<span class="sign__text">Already have an account? <a href="signin.html">Sign In</a></span>
 						</form>
-						<!-- registration form -->
 					</div>
 				</div>
 			</div>
@@ -67,14 +90,116 @@
 
 	<!-- JS -->
 	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/splide.min.js"></script>
-	<script src="js/smooth-scrollbar.js"></script>
-	<script src="js/slimselect.min.js"></script>
-	<script src="js/plyr.min.js"></script>
-	<script src="js/photoswipe.min.js"></script>
-	<script src="js/photoswipe-ui-default.min.js"></script>
 	<script src="js/main.js"></script>
+	<script>
+		function sendOTP() {
+			var email = document.getElementById("email").value;
+
+			fetch('http://localhost:8989/otps/send-otp', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(email),
+				})
+				.then(response => {
+					if (response.ok) {
+						document.getElementById("otpSection").style.display = "block";
+						return response.text();
+					} else if (response.status === 409) {
+						throw new Error('Email already exists. Please use a different email.');
+					} else {
+						throw new Error('Failed to send OTP.');
+					}
+				})
+				.then(token => {
+					console.log("Token received:", token);
+					localStorage.setItem('otpToken', token);
+				})
+				.catch(error => {
+					console.error('Error:', error.message);
+					alert(error.message);
+				});
+		}
+
+		function registerUser() {
+			var name = document.getElementById("name").value;
+			var email = document.getElementById("email").value;
+			var password = document.getElementById("password").value;
+			var confirmPassword = document.getElementById("confirmPassword").value;
+			var agreePrivacy = document.getElementById("agreePrivacy").checked;
+			var otp = document.getElementById("otp").value;
+
+			if (!name || !email || !password || !confirmPassword || !otp) {
+				alert("Please fill in all required fields.");
+				return;
+			}
+
+			if (password !== confirmPassword) {
+				alert("Passwords do not match. Please try again.");
+				return;
+			}
+
+			if (!agreePrivacy) {
+				alert("Please agree to the Privacy policy.");
+				return;
+			}
+
+			var userDTO = {
+				name: name,
+				email: email,
+				password: password,
+				confirmPassword: confirmPassword,
+				otp: otp
+			};
+
+			fetch('http://localhost:8989/otps/verify-otp', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						token: localStorage.getItem('otpToken'),
+						otp: otp
+					}),
+				})
+				.then(response => {
+					if (response.ok) {
+						return fetch('http://localhost:8989/users/register-user', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(userDTO),
+						});
+					} else {
+						throw new Error('Invalid OTP. Please try again.');
+					}
+				})
+				.then(response => {
+					if (response.ok) {
+						alert("User registered successfully!");
+						console.log("Redirecting to signin.html...");
+						window.location.href = '/home/signin.html';
+					} else {
+						throw new Error('Failed to register user.');
+					}
+				})
+				.catch(error => {
+					console.error('Error:', error.message);
+					alert(error.message);
+				});
+		}
+
+		function togglePasswordVisibility(fieldId) {
+			var field = document.getElementById(fieldId);
+			if (field.type === "password") {
+				field.type = "text";
+			} else {
+				field.type = "password";
+			}
+		}
+	</script>
 </body>
 
-<!-- Mirrored from flixgo.volkovdesign.com/main/signup.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 23 Jun 2024 07:10:10 GMT -->
 </html>

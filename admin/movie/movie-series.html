@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>ADMIN-LIST MOVIE</title>
+    <title>ADMIN-LIST SERIES MOVIE</title>
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -125,11 +125,11 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <h1 class="h3 mb-2 text-gray-800">Danh mục phim</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Danh sách phim lẻ</h1>
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h6 class="m-0 font-weight-bold text-primary">Movie List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Single Movie List</h6>
                             <a href="add-movie.html" class="btn btn-primary ml-auto">
                                 <i class="fas fa-plus"></i> Thêm phim
                             </a>
@@ -150,7 +150,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Movie data will be injected here by JavaScript -->
+                                        <!-- Single Movie data will be injected here by JavaScript -->
                                     </tbody>
                                 </table>
                             </div>
@@ -183,7 +183,7 @@
                 "processing": true,
                 "serverSide": false, // Set to true if using server-side processing
                 "ajax": {
-                    "url": 'http://localhost:8989/movies',
+                    "url": 'http://localhost:8989/movies/series', // API endpoint for single movies
                     "dataSrc": ""
                 },
                 "columns": [{
@@ -231,7 +231,6 @@
                     }
                 ]
             });
-
         });
 
         function deleteMovie(movieId) {

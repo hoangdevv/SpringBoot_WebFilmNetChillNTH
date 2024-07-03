@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>ADMIN-LIST MOVIE</title>
+    <title>ADMIN - ADD GENRE</title>
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -33,23 +33,12 @@
             <hr class="sidebar-divider">
             <div class="sidebar-heading">Addons</div>
             <li class="nav-item">
-                <a class="nav-link" href="movie.html">
+                <a class="nav-link" href="/admin/movie/movie.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý phim</span></a>
             </li>
-            <div class="sidebar-heading">Loại phim</div>
             <li class="nav-item">
-                <a class="nav-link" href="movie-series.html">
-                    <i class="fas fa-fw fa-film"></i>
-                    <span>Quản lý phim bộ</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="movie-single.html">
-                    <i class="fas fa-fw fa-film"></i>
-                    <span>Quản lý phim lẻ</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/genre/genre.html">
+                <a class="nav-link" href="genre.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Quản lý thể loại</span></a>
             </li>
@@ -90,7 +79,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
@@ -125,35 +113,18 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <h1 class="h3 mb-2 text-gray-800">Danh mục phim</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Thêm thể loại mới</h1>
 
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h6 class="m-0 font-weight-bold text-primary">Movie List</h6>
-                            <a href="add-movie.html" class="btn btn-primary ml-auto">
-                                <i class="fas fa-plus"></i> Thêm phim
-                            </a>
-                        </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Tên phim</th>
-                                            <th>Quốc gia</th>
-                                            <th>Thể loại</th>
-                                            <th>Loại phim</th>
-                                            <th>Ngày phát hành</th>
-                                            <th>Hình ảnh</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Movie data will be injected here by JavaScript -->
-                                    </tbody>
-                                </table>
-                            </div>
+                            <form id="addGenreForm">
+                                <div class="form-group">
+                                    <label for="genreName">Tên thể loại</label>
+                                    <input type="text" class="form-control" id="genreName" name="name" required>
+                                </div>
+                                <a href="genre.html" type="submit" class="btn">Trở về</a>
+                                <button type="submit" class="btn btn-primary">Thêm thể loại</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -171,88 +142,37 @@
     <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="/admin/js/sb-admin-2.min.js"></script>
-    <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="/admin/js/demo/datatables-demo.js"></script>
     <script>
         $(document).ready(function () {
-            if ($.fn.DataTable.isDataTable('#dataTable')) {
-                $('#dataTable').DataTable().destroy();
-            }
-            $('#dataTable').DataTable({
-                "processing": true,
-                "serverSide": false, // Set to true if using server-side processing
-                "ajax": {
-                    "url": 'http://localhost:8989/movies',
-                    "dataSrc": ""
-                },
-                "columns": [{
-                        "data": "id"
+            // Xử lý form thêm thể loại
+            $('#addGenreForm').submit(function (event) {
+                event.preventDefault();
+
+                // Lấy dữ liệu từ form
+                var genreData = {
+                    name: $('#genreName').val()
+                };
+
+                // Gửi request POST đến backend
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8989/genres',
+                    contentType: 'application/json',
+                    data: JSON.stringify(genreData),
+                    success: function (response) {
+                        alert('Thêm thể loại thành công');
+                        // Sau khi thêm thành công, chuyển hướng về trang danh sách thể loại
+                        window.location.href = 'genre.html';
                     },
-                    {
-                        "data": "title"
-                    },
-                    {
-                        "data": "country",
-                        "render": function (data) {
-                            return data ? data.name : '';
-                        }
-                    },
-                    {
-                        "data": "genres",
-                        "render": function (data) {
-                            return data.map(genre => genre.name).join(', ');
-                        }
-                    },
-                    {
-                        "data": "isSeries",
-                        "render": function (data) {
-                            return data ? 'Phim bộ' : 'Phim lẻ';
-                        }
-                    },
-                    {
-                        "data": "releaseDate",
-                        "render": function (data) {
-                            return new Date(data).toLocaleDateString('en-GB');
-                        }
-                    },
-                    {
-                        "data": "imageUrl",
-                        "render": function (data) {
-                            return `<img src="http://localhost:8989${data}" style="max-width: 100px;">`;
-                        }
-                    },
-                    {
-                        "data": null,
-                        "render": function (data) {
-                            return `<a href="edit-movie.html?id=${data.id}" class="btn btn-info btn-sm">Edit</a>
-                                <button class="btn btn-danger btn-sm" onclick="deleteMovie(${data.id})">Delete</button>`;
-                        }
+                    error: function (error) {
+                        alert('Thêm thể loại không thành công');
+                        console.error('Error:', error);
                     }
-                ]
+                });
             });
-
         });
-
-        function deleteMovie(movieId) {
-            if (confirm('Bạn có chắc chắn muốn xóa phim này không?')) {
-                fetch(`http://localhost:8989/movies/${movieId}`, {
-                        method: 'DELETE',
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Failed to delete movie');
-                        }
-                        alert('Đã xóa phim thành công!');
-                        fetchMovies(); // Refresh the movie list after deletion
-                    })
-                    .catch(error => {
-                        console.error('Error deleting movie:', error);
-                        alert('Error deleting movie. Please try again.');
-                    });
-            }
-        }
     </script>
+
 </body>
 
 </html>
