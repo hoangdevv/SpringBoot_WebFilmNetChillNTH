@@ -1,10 +1,12 @@
 package com.nthnetchill.controller;
 
 import com.nthnetchill.model.Movie;
+import com.nthnetchill.repository.MovieRepository;
 import com.nthnetchill.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,12 +19,15 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private MovieRepository movieRepository;
 
     @GetMapping
     public ResponseEntity<List<Movie>> getAllMovies() {
         List<Movie> movies = movieService.getAllMovies();
-        return ResponseEntity.ok(movies);
+        return ResponseEntity.ok().body(movies);
     }
+
 
     @GetMapping("/{movieId}")
     public ResponseEntity<Movie> getMovie(@PathVariable Long movieId) {
@@ -33,6 +38,15 @@ public class MovieController {
             return ResponseEntity.notFound().build();
         }
     }
+    @GetMapping("/single")
+    public List<Movie> getSingleMovies() {
+        return movieRepository.findByIsSeries(false);
+    }
+
+    @GetMapping("/series")
+    public List<Movie> getSeriesMovies() {
+        return movieRepository.findByIsSeries(true);
+    }
 
     @GetMapping("/search")
     public ResponseEntity<List<Movie>> getMoviesByName(@RequestParam String name) {
@@ -40,11 +54,13 @@ public class MovieController {
         return ResponseEntity.ok(movies);
     }
 
+
     @PostMapping
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
         Movie savedMovie = movieService.addMovie(movie);
         return ResponseEntity.ok(savedMovie);
     }
+
 
     @PutMapping("/{movieId}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Long movieId, @RequestBody Movie updatedMovie) {
@@ -55,6 +71,7 @@ public class MovieController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @PostMapping("/{movieId}/image")
     public ResponseEntity<Movie> addImageToMovie(@PathVariable Long movieId, @RequestParam("imageFile") MultipartFile imageFile) {
@@ -68,17 +85,6 @@ public class MovieController {
         }
     }
 
-//    @PostMapping("/{movieId}/trailer")
-//    public ResponseEntity<Movie> addTrailerToMovie(@PathVariable Long movieId, @RequestParam("trailerFile") MultipartFile trailerFile) {
-//        try {
-//            Movie updatedMovie = movieService.addTrailerToMovie(movieId, trailerFile);
-//            return ResponseEntity.ok(updatedMovie);
-//        } catch (IOException e) {
-//            return ResponseEntity.status(500).body(null);
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.status(404).body(null);
-//        }
-//    }
 
     @DeleteMapping("/{movieId}")
     public ResponseEntity<Void> deleteMovie(@PathVariable Long movieId) {

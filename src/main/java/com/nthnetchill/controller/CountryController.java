@@ -1,6 +1,7 @@
 package com.nthnetchill.controller;
 
 import com.nthnetchill.model.Country;
+import com.nthnetchill.model.Director;
 import com.nthnetchill.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,12 @@ public class CountryController {
     public ResponseEntity<List<Country>> getAllCountries() {
         List<Country> countries = countryService.getAllCountries();
         return ResponseEntity.ok(countries);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Country> getOneCountry(@PathVariable Long id) {
+        Country country = countryService.getOneCountry(id);
+        return ResponseEntity.ok(country);
     }
 
     @PostMapping

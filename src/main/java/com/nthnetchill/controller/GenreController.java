@@ -24,6 +24,16 @@ public class GenreController {
         return ResponseEntity.ok(genres);
     }
 
+    @GetMapping("/{genreId}")
+    public ResponseEntity<Genre> getGenre(@PathVariable Long genreId) {
+        try {
+            Genre genre = genreService.getGenreById(genreId);
+            return ResponseEntity.ok(genre);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/movie/{movieId}")
     public Set<Genre> getGenresByMovieId(@PathVariable Long movieId) {
         return genreService.getGenresByMovieId(movieId);

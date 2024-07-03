@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -36,6 +38,6 @@ public class User extends Base{
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    Set<Role> roles;
+    Collection<Role> roles = new HashSet<>();
 
 }

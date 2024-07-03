@@ -6,6 +6,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "payment")
 public class Payment extends Base{
@@ -31,6 +33,8 @@ public class Payment extends Base{
 
     private BigDecimal totalPrice;
     private Date paymentDate;
-    private boolean status;
+    private String status;
 
+    private String message;
+    private String url;
 }
