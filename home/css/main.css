@@ -2429,6 +2429,7 @@ body::-webkit-scrollbar-thumb {
   .item__description {
     display: block;
     margin-top: 15px;
+    color: #c7c7c7;;
   }
   .item__description p {
     display: -webkit-box;
