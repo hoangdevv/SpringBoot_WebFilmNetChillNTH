@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor //thêm cái này
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "rating")

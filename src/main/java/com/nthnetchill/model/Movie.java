@@ -44,9 +44,11 @@ public class Movie extends Base {
     private MovieSingle movieSingle;
 
     @OneToMany(mappedBy = "movie")
+    @JsonManagedReference
     Set<Rating> ratings;
 
     @OneToMany(mappedBy = "movie")
+    @JsonManagedReference
     Set<Comment> comments;
 
     @OneToMany(mappedBy = "movie")
