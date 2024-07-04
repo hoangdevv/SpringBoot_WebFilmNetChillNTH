@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ADMIN-LIST USER</title>
+    <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link href="/admin/assets/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fa-solid fa-video"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">NTH NetChill</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="/admin/index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Addons</div>
+            <li class="nav-item">
+                <a class="nav-link" href="movie.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý phim</span></a>
+            </li>
+            <div class="sidebar-heading">Loại phim</div>
+            <li class="nav-item">
+                <a class="nav-link" href="movie-series.html">
+                    <i class="fas fa-fw fa-film"></i>
+                    <span>Quản lý phim bộ</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="movie-single.html">
+                    <i class="fas fa-fw fa-film"></i>
+                    <span>Quản lý phim lẻ</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/genre/genre.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý thể loại</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/director/director.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý đạo diễn</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/actor/actor.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý diễn viên</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/country/country.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Quản lý quốc gia</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="user.html">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Quản lý người dùng</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pages</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html">Login</a>
+                        <a class="collapse-item" href="register.html">Register</a>
+                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <img class="img-profile rounded-circle" src="/admin/assets/img/undraw_profile.svg">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="container-fluid">
+                    <h1 class="h3 mb-2 text-gray-800">Danh mục phim</h1>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold text-primary">Movie List</h6>
+                            <a href="add-movie.html" class="btn btn-primary ml-auto">
+                                <i class="fas fa-plus"></i> Thêm phim
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Email</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Movie data will be injected here by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>&copy; NTH NetChill 2024</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/admin/js/sb-admin-2.min.js"></script>
+    <script src="/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="/admin/js/demo/datatables-demo.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ($.fn.DataTable.isDataTable('#dataTable')) {
+                $('#dataTable').DataTable().destroy();
+            }
+            $('#dataTable').DataTable({
+                "processing": true,
+                "serverSide": false, // Set to true if using server-side processing
+                "ajax": {
+                    "url": 'http://localhost:8989/users',
+                    "dataSrc": ""
+                },
+                "columns": [{
+                        "data": "id"
+                    },
+                    {
+                        "data": "email"
+                    },
+                    {
+                        "data": null,
+                        "render": function (data) {
+                            return `
+                                <button class="btn btn-danger btn-sm" onclick="deleteMovie(${data.id})">Delete</button>`;
+                        }
+                    }
+                ]
+            });
+
+        });
+
+        function deleteMovie(userId) {
+            if (confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
+                fetch(`http://localhost:8989/users/${userId}`, {
+                        method: 'DELETE',
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to delete');
+                        }
+                        alert('Đã xóa thành công!');
+                        // Refresh DataTable after deletion
+                        $('#dataTable').DataTable().ajax.reload(null, false);
+                    })
+                    .catch(error => {
+                        console.error('Error deleting:', error);
+                        alert('Error deleting. Please try again.');
+                    });
+            }
+        }
+    </script>
+</body>
+
+</html>
